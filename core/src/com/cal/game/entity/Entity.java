@@ -7,20 +7,18 @@ package com.cal.game.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.cal.game.gfx.AnimLoader;
 import com.cal.game.level.Platform;
 
-public abstract class Entity {
+public abstract class Entity extends Actor {
 
     public static final float GRAVITY = 200.0f;
 
-    public float x, y;
-    public float width, height;
-    public Rectangle rect;
-    private float xP, yP;
     public float xV, yV;
     public boolean grounded;
     public float gravMultiplier;
@@ -29,11 +27,10 @@ public abstract class Entity {
     public float animTime;
 
     public Entity(float xS, float yS, float width, float height) {
-        x = xS;
-        y = yS;
-        this.width = width;
-        this.height = height;
-        rect = new Rectangle(x, y, width, height);
+        setX(xS);
+        setY(yS);
+        setWidth(width);
+        setHeight(height);
     }
 
     public void setAnim(Animation a) {
@@ -46,34 +43,21 @@ public abstract class Entity {
         yV = yVel;
     }
 
-    public void tick(float delta) {
+    @Override
+    public void act(float delta) {
         if(!grounded) {
             yV -= GRAVITY * gravMultiplier * delta;
         }
 
-        xP = x;
-        yP = y;
-
-        x += delta * xV;
-        y += delta * yV;
-
-        rect.set(x, y, width, height);
+        moveBy(delta * xV, delta * yV);
 
         animTime += delta;
     }
 
-    public void render(SpriteBatch batch) {
-        batch.draw(currentAnim.getKeyFrame(animTime), x, y, width, height);
-    }
-
-    public void collide(Platform p) {
-        if(rect.overlaps(p.rect)) {
-
-        }
-    }
-
-    public void collide(Entity e) {
-
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(currentAnim.getKeyFrame(animTime), getX(), getY(), getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
 }
