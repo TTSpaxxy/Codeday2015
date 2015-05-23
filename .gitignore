@@ -61,3 +61,6 @@ gradle-app.setting
 
 ## OS Specific
 .DS_Store
+core/assets/Animation/Thumbs.db
+*.db
+*.db
