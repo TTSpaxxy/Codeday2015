@@ -18,15 +18,16 @@ public class AnimLoader {
 
         TextureRegion[][] tmp = TextureRegion.split(frames, 32, 32);
         TextureRegion[] finalFrames = new TextureRegion[endFrame - startFrame];
-        for(int x = 0; x < WIDTH_TILES; x++) {
-            for(int y = 0; y < HEIGHT_TILES; y++) {
+        for(int y = 0; y < HEIGHT_TILES; y++) {
+            for(int x = 0; x < WIDTH_TILES; x++) {
                 int frameNum =  y * WIDTH_TILES + x;
-                if(frameNum >= startFrame && frameNum < endFrame) finalFrames[frameNum - startFrame] = tmp[x][y];
+                if(frameNum >= startFrame && frameNum < endFrame) {
+                    finalFrames[frameNum - startFrame] = tmp[y][x];
+                }
             }
         }
 
         return new Animation(frameDiff, finalFrames);
-
     }
 
 }

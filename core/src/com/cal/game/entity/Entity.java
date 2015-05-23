@@ -15,13 +15,12 @@ import com.cal.game.level.Platform;
 
 public abstract class Entity {
 
-    public static final float GRAVITY = -5.0f;
+    public static final float GRAVITY = 200.0f;
 
     public float x, y;
     public float width, height;
     public Rectangle rect;
     private float xP, yP;
-    public Rectangle rectP;
     public float xV, yV;
     public boolean grounded;
     public float gravMultiplier;
@@ -35,12 +34,21 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         rect = new Rectangle(x, y, width, height);
-        rectP = new Rectangle(rect);
+    }
+
+    public void setAnim(Animation a) {
+        currentAnim = a;
+        currentAnim.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    public void setVel(float xVel, float yVel) {
+        xV = xVel;
+        yV = yVel;
     }
 
     public void tick(float delta) {
         if(!grounded) {
-            yV -= GRAVITY * gravMultiplier;
+            yV -= GRAVITY * gravMultiplier * delta;
         }
 
         xP = x;
@@ -50,13 +58,22 @@ public abstract class Entity {
         y += delta * yV;
 
         rect.set(x, y, width, height);
-        rectP.set(xP, yP, width, height);
 
         animTime += delta;
     }
 
     public void render(SpriteBatch batch) {
         batch.draw(currentAnim.getKeyFrame(animTime), x, y, width, height);
+    }
+
+    public void collide(Platform p) {
+        if(rect.overlaps(p.rect)) {
+
+        }
+    }
+
+    public void collide(Entity e) {
+
     }
 
 }
