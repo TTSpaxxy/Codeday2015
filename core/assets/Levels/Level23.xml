@@ -24,6 +24,7 @@
         <Platform x="300" y="210" w="100" />
         <Platform x="400" y="300" w="100" />
         <Platform x="400" y="100" w="100" />
+        <Portal x="140" y="300" />
     </Layer>
 
 </Level>

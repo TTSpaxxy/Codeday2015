@@ -2,6 +2,7 @@
 <Level>
     <Layer ord="front">
         <Platform x="60" y="100" w="500" />
+        <Portal x="70" y="110" />
     </Layer>
     <Layer ord="back">
         <Platform x="400" y="350" w="200" />

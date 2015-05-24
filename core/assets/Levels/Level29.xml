@@ -8,6 +8,7 @@
     <Layer ord="back">
         <Platform x="20" y="275" w="300" />
         <Platform x="400" y="375" w="200" />
+        <Portal x="300" y="100" />
     </Layer>
 
 </Level>

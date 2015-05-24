@@ -81,6 +81,12 @@ public class Level extends Stage {
                 l.addActor(character);
                 Gdx.input.setInputProcessor(new InputHandler(character));
                 l.isCurrentLayer = true;
+            } else if(e.getTagName().contentEquals("Portal")) {
+                float x = Float.parseFloat(e.getAttribute("x"));
+                float y = Float.parseFloat(e.getAttribute("y"));
+
+                Portal portal = new Portal(x, y);
+                l.addActor(portal);
             }
         }
 

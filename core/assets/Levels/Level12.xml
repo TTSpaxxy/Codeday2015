@@ -2,11 +2,12 @@
 <Level>
     <Layer ord="front">
         <Platform x="60" y="100" w="500" />
-        <PlayerStart x="60" y="350" />
+        <PlayerStart x="60" y="125" />
     </Layer>
     <Layer ord="back">
-        <Platform x="200" y="250" w="200" />
-        <Platform x="400" y="350" w="200" />
+        <Platform x="200" y="200" w="200" />
+        <Platform x="400" y="300" w="200" />
+        <Portal x="590" y="310" />
     </Layer>
 
 </Level>

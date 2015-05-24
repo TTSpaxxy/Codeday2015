@@ -2,6 +2,7 @@
 <Level>
     <Layer ord="front">
         <Platform x="80" y="100" w="500" />
+        <Portal x="100" y="110" />
         <PlayerStart x="500" y="125" />
     </Layer>
     <Layer ord="back"></Layer>

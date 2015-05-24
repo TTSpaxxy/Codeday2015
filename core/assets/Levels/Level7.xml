@@ -7,6 +7,7 @@
     </Layer>
     <Layer ord="back">
         <Platform x="200" y="300" w="400" />
+        <Portal x="590" y="310" />
     </Layer>
 
 </Level>

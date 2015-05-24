@@ -8,6 +8,7 @@
         <Platform x="100" y="225" w="200" />
         <Platform x="320" y="325" w="200" />
         <Platform x="50" y="400" w="200" />
+        <Portal x="200" y="300" />
     </Layer>
 
 </Level>
