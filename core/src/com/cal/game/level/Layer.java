@@ -19,7 +19,7 @@ public class Layer extends Group {
     public boolean isCurrentLayer = false;
     public boolean isBackLayer = false;
 
-    private ArrayList<Platform> platforms;
+    public ArrayList<Platform> platforms;
 
     public ArrayList<Platform> getPlatforms() {
         if(platforms == null) {

@@ -12,12 +12,14 @@ import com.cal.game.entity.Entity;
 import com.cal.game.entity.MainCharacter;
 import com.cal.game.input.InputHandler;
 import com.cal.game.level.Layer;
+import com.cal.game.level.Level;
 import com.cal.game.level.Platform;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	Stage stage;
+	Level level;
 	Layer frontLayer;
 	Layer backLayer;
 	MainCharacter e;
@@ -26,15 +28,15 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		stage = new Stage(new StretchViewport(640, 480));
-		frontLayer = new Layer();
+		level = new Level("Levels/testlevel.xml");
+		/**frontLayer = new Layer();
 		backLayer = new Layer();
 		frontLayer.otherLayer = backLayer;
 		backLayer.otherLayer = frontLayer;
 		stage.addActor(backLayer);
 		stage.addActor(frontLayer);
 
-		e = new MainCharacter();
+		e = new MainCharacter(200, 200);
 		p = new Platform(100, 100, 200, 30);
 		p2 = new Platform(200, 175, 200, 30);
 		p3 = new Platform(300, 250, 200, 30);
@@ -44,17 +46,15 @@ public class Game extends ApplicationAdapter {
 		frontLayer.addActor(e);
 		backLayer.addActor(e.indicator);
 		frontLayer.isCurrentLayer = true;
-		backLayer.isBackLayer = true;
-
-		Gdx.input.setInputProcessor(new InputHandler(e));
+		backLayer.isBackLayer = true;*/
 	}
 
 	@Override
 	public void render () {
-		stage.act(Gdx.graphics.getDeltaTime());
+		level.act(Gdx.graphics.getDeltaTime());
 
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.draw();
+		level.draw();
 	}
 }

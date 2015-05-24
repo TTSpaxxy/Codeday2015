@@ -13,13 +13,13 @@ Tags:
 
 Example level:
 <Level>
-    <FrontLayer>
+    <Layer ord="front">
         <Platform x=100 y=100 w=200 />
         <Platform x=300 y=250 w=200 />
         <PlayerStart x=125 y=110 />
-    </FrontLayer>
+    </Layer>
 
-    <BackLayer>
+    <Layer ord="back">
         <Platform x=200 y=175 w=200 />
-    </BackLayer>
+    </Layer>
 </Level>

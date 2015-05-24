@@ -23,11 +23,12 @@ public class MainCharacter extends Entity {
     public LayerIndicator indicator;
     public float layerCooldown = 0;
 
-    public MainCharacter() {
-        super(200, 200, 32, 32);
+    public MainCharacter(float xS, float yS) {
+        super(xS, yS, 32, 32);
         setAnim(IDLE_RIGHT);
         gravMultiplier = 1;
 
+        setName("Michael Jackson");
         indicator = new LayerIndicator();
     }
 
