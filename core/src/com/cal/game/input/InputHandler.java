@@ -22,9 +22,13 @@ public class InputHandler implements InputProcessor {
         switch(keycode) {
             case Input.Keys.LEFT:
                 c.setMoveLeft(true);
+                c.isMoving = true;
+                c.faceLeft = true;
                 break;
             case Input.Keys.RIGHT:
                 c.setMoveRight(true);
+                c.isMoving = true;
+                c.faceRight = true;
                 break;
             case Input.Keys.SPACE:
                 c.jump();
@@ -44,9 +48,13 @@ public class InputHandler implements InputProcessor {
         switch(keycode) {
             case Input.Keys.LEFT:
                 c.setMoveLeft(false);
+                c.isMoving = false;
+                c.faceRight = false;
                 break;
             case Input.Keys.RIGHT:
                 c.setMoveRight(false);
+                c.isMoving = false;
+                c.faceLeft = false;
                 break;
             default:
                 break;
