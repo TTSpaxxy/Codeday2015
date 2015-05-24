@@ -52,12 +52,14 @@ public class InputHandler implements InputProcessor {
                 c.setMoveLeft(false);
                 c.isMoving = false;
                 c.faceRight = false;
+                c.leftDown = false;
                 if(c.rightDown) c.setMoveRight(true);
                 break;
             case Input.Keys.RIGHT:
                 c.setMoveRight(false);
                 c.isMoving = false;
                 c.faceLeft = false;
+                c.rightDown = false;
                 if(c.leftDown) c.setMoveLeft(true);
                 break;
             default:
