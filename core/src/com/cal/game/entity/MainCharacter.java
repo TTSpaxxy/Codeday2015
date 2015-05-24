@@ -40,13 +40,21 @@ public class MainCharacter extends Entity {
     }
 
     public void setMoveRight(boolean t) {
-        if(moveLeft && t) moveLeft = false;
         moveRight = t;
+        if(moveRight) {
+            faceRight = true;
+            faceLeft = false;
+        }
+        isMoving = t;
     }
 
     public void setMoveLeft(boolean t) {
-        if(moveRight && t) moveRight = false;
         moveLeft = t;
+        if(moveLeft) {
+            faceLeft = true;
+            faceRight = false;
+        }
+        isMoving = t;
     }
 
     public void jump() {
@@ -82,8 +90,6 @@ public class MainCharacter extends Entity {
             xV = 0;
             if(faceRight) setAnim(IDLE_RIGHT);
             else if (faceLeft) setAnim(IDLE_LEFT);
-
-            setAnim((xV > 0) ? WALK_RIGHT : WALK_LEFT);
         }
 
         indicator.setPosition(getX(), getY());
