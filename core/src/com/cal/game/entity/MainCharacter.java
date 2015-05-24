@@ -1,17 +1,9 @@
 package com.cal.game.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.math.Vector3;
 import com.cal.game.gfx.AnimLoader;
+import com.cal.game.gfx.Effect;
 import com.cal.game.level.Layer;
-import com.cal.game.level.Platform;
 
 /**
  * Created by acohen on 5/23/15.
@@ -66,11 +58,16 @@ public class MainCharacter extends Entity {
 
     public void jumpLayers() {
         if(layerCooldown <= 0) {
+            Effect jump = Effect.LAYER_JUMP;
+
             getParent().addActor(indicator);
+            getParent().addActor(jump);
             ((Layer) getParent()).isCurrentLayer = false;
             ((Layer) getParent()).otherLayer.addActor(this);
             ((Layer) getParent()).isCurrentLayer = true;
-            
+
+            jump.play(getX(), getY(), getWidth(), getHeight(), 0);
+
             layerCooldown = 2;
         }
     }
