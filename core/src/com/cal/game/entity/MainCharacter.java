@@ -16,6 +16,8 @@ public class MainCharacter extends Entity {
     private static final Animation WALK_LEFT = AnimLoader.loadAnim("Animation/MainCharacter.png", 24, 27, 1f / 6f);
 
     public boolean moveRight, moveLeft;
+    public boolean faceRight, faceLeft;
+    public boolean isMoving;
 
     public MainCharacter() {
         super(200, 200, 32, 32);
@@ -43,27 +45,23 @@ public class MainCharacter extends Entity {
     }
 
     @Override
-    public void setVel(float xVel, float yVel) {
-        if(xVel == 0) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
-        } else {
-            setAnim((xVel > 0) ? WALK_RIGHT : WALK_LEFT);
-        }
-
-        super.setVel(xVel, yVel);
-    }
-
-    @Override
     public void act(float delta) {
-        if(!moveRight && !moveLeft) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
-            xV = 0;
-        } else {
-            if(moveRight) xV = 50;
-            else if(moveLeft) xV = -50;
 
-            setAnim((xV > 0) ? WALK_RIGHT : WALK_LEFT);
+        if(moveRight) {
+            xV = 50;
+            setAnim(WALK_RIGHT);
         }
+        else if(moveLeft) {
+            xV = -50;
+            setAnim(WALK_LEFT);
+        }
+        if (isMoving == false) {
+            xV = 0;
+            if(faceRight) setAnim(IDLE_RIGHT);
+            else if (faceLeft) setAnim(IDLE_LEFT);
+
+        }
+
 
         super.act(delta);
     }
