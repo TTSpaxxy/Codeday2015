@@ -26,7 +26,7 @@ public class MainCharacter extends Entity {
 
     public boolean moveRight, moveLeft;
     public boolean faceRight, faceLeft;
-    public boolean isMoving;
+    public boolean isMoving, leftDown, rightDown;
 
     public LayerIndicator indicator;
     public float layerCooldown = 0;
