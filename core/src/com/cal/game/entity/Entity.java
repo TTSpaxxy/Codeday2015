@@ -5,6 +5,7 @@ package com.cal.game.entity;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,7 +14,10 @@ import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.cal.game.gfx.AnimLoader;
+import com.cal.game.level.Layer;
 import com.cal.game.level.Platform;
+
+import java.util.ArrayList;
 
 public abstract class Entity extends Actor {
 
@@ -60,13 +64,27 @@ public abstract class Entity extends Actor {
 
         animTime += delta;
 
-        if (gravMultiplier > 0) {
+        hitBottom.set(getX(), getY(), getWidth(), getHeight() / 8);
+        hitTop.set(getX(), getTop() + 7 / 8 * getHeight(), getWidth(), getHeight() / 8);
+        hitLeft.set(getX(), getTop(), getWidth() / 8, getHeight());
+        hitRight.set(getX() + 7 / 8 * getWidth(), getTop(), getWidth() / 8, getHeight());
 
+        grounded = false;
+        if (gravMultiplier > 0) {
+            for(Platform p : ((Layer) getParent()).getPlatforms()) {
+                if(hitBottom.overlaps(p.hitbox)) {
+                    grounded = true;
+                    yV = 0;
+                    setY(p.hitbox.getY() + p.hitbox.getHeight() - 1);
+                }
+            }
         }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        Color batchColor = batch.getColor();
+        batch.setColor(batchColor.r, batchColor.g, batchColor.b, parentAlpha);
         batch.draw(currentAnim.getKeyFrame(animTime), getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

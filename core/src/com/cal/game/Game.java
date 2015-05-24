@@ -21,7 +21,7 @@ public class Game extends ApplicationAdapter {
 	Layer frontLayer;
 	Layer backLayer;
 	MainCharacter e;
-	Platform p;
+	Platform p, p2;
 	
 	@Override
 	public void create () {
@@ -29,11 +29,20 @@ public class Game extends ApplicationAdapter {
 		stage = new Stage(new StretchViewport(640, 480));
 		frontLayer = new Layer();
 		backLayer = new Layer();
-		stage.addActor(frontLayer);
+		frontLayer.otherLayer = backLayer;
+		backLayer.otherLayer = frontLayer;
 		stage.addActor(backLayer);
+		stage.addActor(frontLayer);
 
 		e = new MainCharacter();
 		p = new Platform(100, 100, 200, 30);
+		p2 = new Platform(100, 100, 200, 30);
+		frontLayer.addActor(p);
+		backLayer.addActor(p2);
+		frontLayer.addActor(e);
+		backLayer.addActor(e.indicator);
+		frontLayer.isCurrentLayer = true;
+		backLayer.isBackLayer = true;
 
 		Gdx.input.setInputProcessor(new InputHandler(e));
 	}

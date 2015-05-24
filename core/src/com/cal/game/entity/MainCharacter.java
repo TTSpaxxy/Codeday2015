@@ -2,7 +2,8 @@ package com.cal.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.cal.game.gfx.AnimLoader;
-import com.cal.game.level.Platform;
+import com.cal.game.gfx.Effect;
+import com.cal.game.level.Layer;
 
 /**
  * Created by acohen on 5/23/15.
@@ -16,54 +17,84 @@ public class MainCharacter extends Entity {
     private static final Animation WALK_LEFT = AnimLoader.loadAnim("Animation/MainCharacter.png", 24, 27, 1f / 6f);
 
     public boolean moveRight, moveLeft;
+    public boolean faceRight, faceLeft;
+    public boolean isMoving, leftDown, rightDown;
+
+    public LayerIndicator indicator;
+    public float layerCooldown = 0;
 
     public MainCharacter() {
         super(200, 200, 32, 32);
-        currentAnim = WALK_RIGHT;
-        currentAnim.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        setAnim(IDLE_RIGHT);
         gravMultiplier = 1;
+
+        indicator = new LayerIndicator();
     }
 
     public void setMoveRight(boolean t) {
-        if(moveLeft && t) moveLeft = false;
         moveRight = t;
+        if(moveRight) {
+            faceRight = true;
+            faceLeft = false;
+        }
+        isMoving = t;
     }
 
     public void setMoveLeft(boolean t) {
-        if(moveRight && t) moveRight = false;
         moveLeft = t;
+        if(moveLeft) {
+            faceLeft = true;
+            faceRight = false;
+        }
+        isMoving = t;
     }
 
     public void jump() {
-        System.out.println(grounded);
         if(grounded) {
             yV = 150;
             grounded = false;
         }
     }
 
-    @Override
-    public void setVel(float xVel, float yVel) {
-        if(xVel == 0) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
-        } else {
-            setAnim((xVel > 0) ? WALK_RIGHT : WALK_LEFT);
-        }
+    public void jumpLayers() {
+        if(layerCooldown <= 0) {
+            Effect jump = Effect.LAYER_JUMP;
 
-        super.setVel(xVel, yVel);
+            getParent().addActor(indicator);
+            getParent().addActor(jump);
+            ((Layer) getParent()).isCurrentLayer = false;
+            ((Layer) getParent()).otherLayer.addActor(this);
+            ((Layer) getParent()).isCurrentLayer = true;
+
+            jump.play(getX(), getY(), getWidth(), getHeight(), 0);
+
+            layerCooldown = 2;
+        }
     }
 
     @Override
     public void act(float delta) {
-        if(!moveRight && !moveLeft) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
-            xV = 0;
-        } else {
-            if(moveRight) xV = 50;
-            else if(moveLeft) xV = -50;
 
-            setAnim((xV > 0) ? WALK_RIGHT : WALK_LEFT);
+        if(moveRight) {
+            xV = 50;
+            setAnim(WALK_RIGHT);
         }
+        else if(moveLeft) {
+            xV = -50;
+            setAnim(WALK_LEFT);
+        }
+        if (isMoving == false) {
+            xV = 0;
+            if(faceRight) setAnim(IDLE_RIGHT);
+            else if (faceLeft) setAnim(IDLE_LEFT);
+        }
+
+        indicator.setPosition(getX(), getY());
+        indicator.setSize(getWidth(), getHeight());
+        indicator.setRotation(getRotation());
+
+        if(layerCooldown > 0) layerCooldown -= delta;
+        else layerCooldown = 0;
 
         super.act(delta);
     }
