@@ -20,8 +20,13 @@ public class Layer extends Group {
     public boolean isCurrentLayer = false;
     public boolean isBackLayer = false;
 
+    public Group projectiles;
+
     public ArrayList<Platform> platforms;
-    public ArrayList<LaserGun.Bullet> bullets;
+
+    public Layer() {
+        projectiles = new Group();
+    }
 
     public ArrayList<Platform> getPlatforms() {
         if(platforms == null) {
@@ -36,21 +41,18 @@ public class Layer extends Group {
         return platforms;
     }
 
-    public ArrayList<LaserGun.Bullet> getBullets() {
-        if(bullets == null) {
-            bullets = new ArrayList<LaserGun.Bullet>();
-            for(Actor a : getChildren()) {
-                if(a instanceof LaserGun.Bullet) {
-                    bullets.add((LaserGun.Bullet) a);
-                }
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        for(Actor a : projectiles.getChildren()) {
+            if(a.getX() < 0 || a.getX() > 640) {
+                projectiles.removeActor(a);
+                a.clear();
+                continue;
             }
+            a.act(delta);
         }
-
-        return bullets;
-    }
-
-    public void removeBullet(LaserGun.Bullet b) {
-        bullets.remove(b);
     }
 
     @Override
@@ -60,6 +62,9 @@ public class Layer extends Group {
             batch.setTransformMatrix(scaledMatrix);
         }
         for(Actor a : getChildren()) {
+            a.draw(batch, isCurrentLayer ? 1.0f : 0.3f);
+        }
+        for(Actor a : projectiles.getChildren()) {
             a.draw(batch, isCurrentLayer ? 1.0f : 0.3f);
         }
 

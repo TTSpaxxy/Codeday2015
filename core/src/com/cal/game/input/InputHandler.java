@@ -37,6 +37,8 @@ public class InputHandler implements InputProcessor {
             case Input.Keys.SHIFT_LEFT:
                 c.jumpLayers();
                 break;
+            case Input.Keys.Z:
+                c.gun.shoot(c);
             default:
                 break;
         }

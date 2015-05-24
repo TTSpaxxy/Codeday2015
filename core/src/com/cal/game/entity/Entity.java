@@ -13,14 +13,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.cal.game.entity.item.Item;
 import com.cal.game.gfx.AnimLoader;
 import com.cal.game.level.Layer;
 import com.cal.game.level.Platform;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Entity extends Actor {
+public abstract class Entity extends Group {
 
     public static final float GRAVITY = 200.0f;
 
@@ -34,8 +37,6 @@ public abstract class Entity extends Actor {
 
     public Rectangle hitBottom, hitTop, hitLeft, hitRight;
 
-    ArrayList<Item> items;
-
     public Entity(float xS, float yS, float width, float height) {
         setX(xS);
         setY(yS);
@@ -46,8 +47,6 @@ public abstract class Entity extends Actor {
         hitTop = new Rectangle(getX(), getY() + 7 / 8 * getHeight(), getWidth(), getHeight() / 8);
         hitLeft = new Rectangle(getX(), getY(), getWidth() / 8, getHeight());
         hitRight = new Rectangle(getX() + 7 / 8 * getWidth(), getY(), getWidth() / 8, getHeight());
-
-        items = new ArrayList<Item>();
     }
 
     public void setAnim(Animation a) {

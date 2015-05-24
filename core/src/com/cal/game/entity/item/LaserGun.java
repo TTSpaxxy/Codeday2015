@@ -1,6 +1,7 @@
 package com.cal.game.entity.item;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -25,61 +26,55 @@ public class LaserGun extends Item {
     private float cooldown;
 
     public LaserGun(float xS, float yS, GunType type) {
-        setPosition(xS, yS);
-        setSize(16, 16);
+        super(xS, yS, 32, 32);
 
         groundAnim = AnimLoader.loadAnim("Animation/Weapons.png", 19, 20, 1f);
-        heldAnim = AnimLoader.loadAnim("Animation/Weapons.png", 19, 21, 1f / 2f);
+        heldAnimRight = AnimLoader.loadAnim("Animation/Weapons.png", 19, 21, 1f / 2f);
+        heldAnimLeft = AnimLoader.loadAnim("Animation/Weapons.png", 21, 23, 1f / 2f);
+
+        this.type = type;
     }
 
-    public void shoot() {
+    public void shoot(Entity owner) {
         if(!isHeld) return;
         if(cooldown == 0) {
-            ((Layer) holder.getParent()).addActor(new Bullet(this, (holder.facingRight) ? 1 : -1));
+            holder.projectiles.addActor(new Bullet(this, (holder.facingRight) ? 1 : -1, owner));
             cooldown = type.reloadSpeed;
         }
     }
 
     @Override
     public void act(float delta) {
-        for(Bullet b : ((Layer) holder.getParent()).getBullets()) {
-            if(!b.exists) {
-                ((Layer) holder.getParent()).removeBullet(b);
-            }
-        }
+        if(cooldown > 0) cooldown -= delta;
+        if(cooldown < 0) cooldown = 0;
+
+        super.act(delta);
     }
 
     public class Bullet extends Entity {
 
-        Animation bulletTex = AnimLoader.loadAnim("Animation/Weapons.png", 5, 6, 1f);
+        Animation bulletTex = AnimLoader.loadAnim("Animation/Weapons.png", 18, 19, 1f);
 
         public boolean exists;
+        public Entity owner;
         public Rectangle hitbox;
 
-        public Bullet(LaserGun gun, int dir) {
-            super(gun.getX(), gun.getY(), gun.type.bulletSize, 5);
+        public Bullet(LaserGun gun, int dir, Entity owner) {
+            super(gun.getX(), gun.getY() - 12, gun.type.bulletSize, gun.type.bulletSize);
 
             xV = gun.type.bulletSpeed * dir;
-        }
 
-        public void hasHit(LivingEntity e) {
-            exists = false;
-            e.isHit();
-        }
-
-        public void act(float delta) {
-            if(getX() > 640 || getX() < 0) exists = false;
-
-            super.act(delta);
+            currentAnim = bulletTex;
+            this.owner = owner;
         }
 
     }
 
     public enum GunType {
-        PISTOL_BLUE(70, 1, 5),
-        PISTOL_RED(70, 1, 5),
-        RIFLE_BLUE(100, 0.2f, 10),
-        RIFLE_RED(100, 0.2f, 10);
+        PISTOL_BLUE(150, 0.4f, 48),
+        PISTOL_RED(150, 0.4f, 48),
+        RIFLE_BLUE(200, 0.2f, 32),
+        RIFLE_RED(200, 0.2f, 32);
 
         float bulletSpeed;
         float reloadSpeed;

@@ -1,6 +1,9 @@
 package com.cal.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.cal.game.entity.item.LaserGun;
 import com.cal.game.gfx.AnimLoader;
 import com.cal.game.gfx.Effect;
 import com.cal.game.level.Layer;
@@ -8,7 +11,7 @@ import com.cal.game.level.Layer;
 /**
  * Created by acohen on 5/23/15.
  */
-public class MainCharacter extends Entity {
+public class MainCharacter extends LivingEntity {
 
     private static final Animation IDLE_RIGHT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 35, 37, 1f / 2f);
     private static final Animation IDLE_LEFT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 43, 45, 1f / 2f);
@@ -25,14 +28,21 @@ public class MainCharacter extends Entity {
     public LayerIndicator indicator;
     public float layerCooldown = 0;
 
+    public LaserGun gun;
+
     public MainCharacter(float xS, float yS) {
-        super(xS, yS, 32, 32);
+        super(xS, yS, 32, 32, 3);
         setAnim(IDLE_RIGHT_FRONT);
         gravMultiplier = 1;
+        gun = new LaserGun(xS + 20, yS + 15, LaserGun.GunType.PISTOL_BLUE);
+        gun.pickUp(this);
+        gun.isHeld = true;
 
         setName("Michael Jackson");
         indicator = new LayerIndicator();
     }
+
+
 
     public void setWalk(int dir) {
         if(dir > 0) {
