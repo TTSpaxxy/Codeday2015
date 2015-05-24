@@ -143,6 +143,9 @@ public class Level extends Stage {
         l.front.otherLayer = l.back;
         l.back.otherLayer = l.front;
 
+        if(l.front.isCurrentLayer) l.back.addActor(((MainCharacter) l.front.findActor("Michael Jackson")).indicator);
+        else if(l.back.isCurrentLayer) l.front.addActor(((MainCharacter) l.back.findActor("Michael Jackson")).indicator);
+
         return l;
     }
 

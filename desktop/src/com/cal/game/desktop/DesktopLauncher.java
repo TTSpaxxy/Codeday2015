@@ -9,6 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = 480;
 		config.width = 640;
+		config.title = "Speedrunning: The Game: The Game";
 		new LwjglApplication(new Game(), config);
 	}
 }
