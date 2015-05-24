@@ -1,7 +1,16 @@
 package com.cal.game.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector3;
 import com.cal.game.gfx.AnimLoader;
+import com.cal.game.level.Layer;
 import com.cal.game.level.Platform;
 
 /**
@@ -19,11 +28,14 @@ public class MainCharacter extends Entity {
     public boolean faceRight, faceLeft;
     public boolean isMoving;
 
+    public LayerIndicator indicator;
+
     public MainCharacter() {
         super(200, 200, 32, 32);
-        currentAnim = WALK_RIGHT;
-        currentAnim.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        setAnim(IDLE_RIGHT);
         gravMultiplier = 1;
+
+        indicator = new LayerIndicator();
     }
 
     public void setMoveRight(boolean t) {
@@ -44,6 +56,10 @@ public class MainCharacter extends Entity {
         }
     }
 
+    public void jumpLayers() {
+
+    }
+
     @Override
     public void act(float delta) {
 
@@ -62,6 +78,9 @@ public class MainCharacter extends Entity {
 
         }
 
+        indicator.setPosition(getX(), getY());
+        indicator.setSize(getWidth(), getHeight());
+        indicator.setRotation(getRotation());
 
         super.act(delta);
     }

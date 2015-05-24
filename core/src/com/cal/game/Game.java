@@ -29,6 +29,8 @@ public class Game extends ApplicationAdapter {
 		stage = new Stage(new StretchViewport(640, 480));
 		frontLayer = new Layer();
 		backLayer = new Layer();
+		frontLayer.otherLayer = backLayer;
+		backLayer.otherLayer = frontLayer;
 		stage.addActor(backLayer);
 		stage.addActor(frontLayer);
 
@@ -38,6 +40,7 @@ public class Game extends ApplicationAdapter {
 		frontLayer.addActor(p);
 		backLayer.addActor(p2);
 		frontLayer.addActor(e);
+		backLayer.addActor(e.indicator);
 		frontLayer.isCurrentLayer = true;
 		backLayer.isBackLayer = true;
 
