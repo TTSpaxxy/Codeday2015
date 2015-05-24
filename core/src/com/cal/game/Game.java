@@ -15,6 +15,8 @@ import com.cal.game.level.Layer;
 import com.cal.game.level.Level;
 import com.cal.game.level.Platform;
 
+import java.util.Random;
+
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
@@ -23,25 +25,28 @@ public class Game extends ApplicationAdapter {
 	public static boolean nextLevel = false;
 	public static boolean restart = false;
 	public static Level level;
-	public static int levelCounter = 1;
+	public static int levelCounter = 30;
+	public static Random seed;
 
 	public static void nextLevel() {
-		levelCounter += 1;
-		level.dispose();
-		if(levelCounter > 30) {
+		levelCounter -= 1;
+		if(level != null) level.dispose();
+		if(levelCounter == 0) {
 			System.out.println("You win!");
 			System.exit(0);
 		}
-		level = new Level("Levels/Level" + levelCounter + ".xml");
+		level = Level.generateRandomLevel(seed);
 	}
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		level = new Level("Levels/Level1.xml");
 
 		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
 		border = new Texture(Gdx.files.internal("Animation/Border.png"));
+		Game.seed = new Random();
+
+		nextLevel();
 	}
 
 	@Override
@@ -69,7 +74,7 @@ public class Game extends ApplicationAdapter {
 	}
 
 	public static void restart () {
-		levelCounter -= 1;
+		levelCounter += 1;
 		nextLevel();
 	}
 }
