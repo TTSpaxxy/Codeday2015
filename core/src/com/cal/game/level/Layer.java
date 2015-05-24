@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Layer extends Group {
 
+    public Layer otherLayer;
+
     public boolean isCurrentLayer = false;
     public boolean isBackLayer = false;
 
