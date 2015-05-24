@@ -6,7 +6,6 @@
         <Platform x="300" y="100" w="200" />
         <PlayerStart x="125" y="400" />
     </Layer>
-
     <Layer ord="back"></Layer>
 
 </Level>
