@@ -21,7 +21,7 @@ public class Game extends ApplicationAdapter {
 	Layer frontLayer;
 	Layer backLayer;
 	MainCharacter e;
-	Platform p, p2;
+	Platform p, p2, p3;
 	
 	@Override
 	public void create () {
@@ -36,9 +36,11 @@ public class Game extends ApplicationAdapter {
 
 		e = new MainCharacter();
 		p = new Platform(100, 100, 200, 30);
-		p2 = new Platform(100, 100, 200, 30);
+		p2 = new Platform(200, 175, 200, 30);
+		p3 = new Platform(300, 250, 200, 30);
 		frontLayer.addActor(p);
 		backLayer.addActor(p2);
+		frontLayer.addActor(p3);
 		frontLayer.addActor(e);
 		backLayer.addActor(e.indicator);
 		frontLayer.isCurrentLayer = true;
@@ -51,7 +53,7 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		stage.act(Gdx.graphics.getDeltaTime());
 
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 	}

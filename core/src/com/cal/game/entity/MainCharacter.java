@@ -51,7 +51,7 @@ public class MainCharacter extends Entity {
 
     public void jump() {
         if(grounded) {
-            yV = 150;
+            yV = 200;
             grounded = false;
         }
     }
@@ -59,14 +59,17 @@ public class MainCharacter extends Entity {
     public void jumpLayers() {
         if(layerCooldown <= 0) {
             Effect jump = Effect.LAYER_JUMP;
+            Effect end = Effect.LAYER_JUMP_END;
 
             getParent().addActor(indicator);
             getParent().addActor(jump);
             ((Layer) getParent()).isCurrentLayer = false;
             ((Layer) getParent()).otherLayer.addActor(this);
             ((Layer) getParent()).isCurrentLayer = true;
+            getParent().addActor(end);
 
             jump.play(getX(), getY(), getWidth(), getHeight(), 0);
+            end.play(getX(), getY(), getWidth(), getHeight(), 0);
 
             layerCooldown = 2;
         }
