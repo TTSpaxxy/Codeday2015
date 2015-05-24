@@ -25,7 +25,7 @@ import java.util.List;
 
 public abstract class Entity extends Group {
 
-    public static final float GRAVITY = 200.0f;
+    public static final float GRAVITY = 700.0f;
 
     public float xV, yV;
     public boolean facingRight = true;
