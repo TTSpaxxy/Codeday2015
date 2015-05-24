@@ -70,7 +70,6 @@ public abstract class Entity extends Actor {
         hitRight.set(getX() + 7 / 8 * getWidth(), getTop(), getWidth() / 8, getHeight());
 
         grounded = false;
-        System.out.println(yV);
         if (gravMultiplier > 0) {
             for(Platform p : ((Layer) getParent()).getPlatforms()) {
                 if(hitBottom.overlaps(p.hitbox)) {

@@ -27,6 +27,7 @@ public class MainCharacter extends Entity {
     public boolean moveRight, moveLeft;
 
     public LayerIndicator indicator;
+    public float layerCooldown = 0;
 
     public MainCharacter() {
         super(200, 200, 32, 32);
@@ -47,7 +48,6 @@ public class MainCharacter extends Entity {
     }
 
     public void jump() {
-        System.out.println(grounded);
         if(grounded) {
             yV = 150;
             grounded = false;
@@ -55,18 +55,14 @@ public class MainCharacter extends Entity {
     }
 
     public void jumpLayers() {
+        if(layerCooldown <= 0) {
+            getParent().addActor(indicator);
+            ((Layer) getParent()).isCurrentLayer = false;
+            ((Layer) getParent()).otherLayer.addActor(this);
+            ((Layer) getParent()).isCurrentLayer = true;
 
-    }
-
-    @Override
-    public void setVel(float xVel, float yVel) {
-        if(xVel == 0) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
-        } else {
-            setAnim((xVel > 0) ? WALK_RIGHT : WALK_LEFT);
+            layerCooldown = 2;
         }
-
-        super.setVel(xVel, yVel);
     }
 
     @Override
@@ -84,6 +80,9 @@ public class MainCharacter extends Entity {
         indicator.setPosition(getX(), getY());
         indicator.setSize(getWidth(), getHeight());
         indicator.setRotation(getRotation());
+
+        if(layerCooldown > 0) layerCooldown -= delta;
+        else layerCooldown = 0;
 
         super.act(delta);
     }
