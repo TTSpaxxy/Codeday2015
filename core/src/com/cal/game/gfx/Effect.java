@@ -10,7 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Effect extends Actor {
 
-    public static final Effect LAYER_JUMP = new Effect(AnimLoader.loadAnim("Animation/Warp.png", 0, 8, 1f / 10f), Animation.PlayMode.NORMAL, true);
+    public static final Effect LAYER_JUMP_BLUE = new Effect(AnimLoader.loadAnim("Animation/Warp.png", 0, 8, 1f / 10f), Animation.PlayMode.NORMAL, false);
+    public static final Effect LAYER_JUMP_ORANGE = new Effect(AnimLoader.loadAnim("Animation/Exit Warp.png", 0, 8, 1f / 10f), Animation.PlayMode.NORMAL, false);
 
     public Animation effect;
     public Animation.PlayMode playMode;

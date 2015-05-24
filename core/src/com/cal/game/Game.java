@@ -12,47 +12,42 @@ import com.cal.game.entity.Entity;
 import com.cal.game.entity.MainCharacter;
 import com.cal.game.input.InputHandler;
 import com.cal.game.level.Layer;
+import com.cal.game.level.Level;
 import com.cal.game.level.Platform;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	Stage stage;
-	Layer frontLayer;
-	Layer backLayer;
-	MainCharacter e;
-	Platform p, p2;
+	Level level;
+	Texture background;
+	Texture border;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		stage = new Stage(new StretchViewport(640, 480));
-		frontLayer = new Layer();
-		backLayer = new Layer();
-		frontLayer.otherLayer = backLayer;
-		backLayer.otherLayer = frontLayer;
-		stage.addActor(backLayer);
-		stage.addActor(frontLayer);
-
-		e = new MainCharacter();
-		p = new Platform(100, 100, 200, 30);
-		p2 = new Platform(100, 100, 200, 30);
-		frontLayer.addActor(p);
-		backLayer.addActor(p2);
-		frontLayer.addActor(e);
-		backLayer.addActor(e.indicator);
-		frontLayer.isCurrentLayer = true;
-		backLayer.isBackLayer = true;
-
-		Gdx.input.setInputProcessor(new InputHandler(e));
+<<<<<<< HEAD
+		level = new Level("Levels/Level23.xml");
+=======
+<<<<<<< HEAD
+		level = new Level("Levels/Level1.xml");
+=======
+		level = new Level("Levels/Level24.xml");
+>>>>>>> origin/master
+>>>>>>> origin/master
+		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
+		border = new Texture(Gdx.files.internal("Animation/Border.png"));
 	}
 
 	@Override
 	public void render () {
-		stage.act(Gdx.graphics.getDeltaTime());
+		level.act(Gdx.graphics.getDeltaTime());
 
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.draw();
+		batch.begin();
+		batch.draw(background, 0, 0);
+		batch.draw(border, 0, 0);
+		batch.end();
+
+		level.draw();
 	}
 }
