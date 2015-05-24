@@ -25,6 +25,8 @@ public class MainCharacter extends Entity {
     private static final Animation WALK_LEFT = AnimLoader.loadAnim("Animation/MainCharacter.png", 24, 27, 1f / 6f);
 
     public boolean moveRight, moveLeft;
+    public boolean faceRight, faceLeft;
+    public boolean isMoving;
 
     public LayerIndicator indicator;
     public float layerCooldown = 0;
@@ -60,19 +62,26 @@ public class MainCharacter extends Entity {
             ((Layer) getParent()).isCurrentLayer = false;
             ((Layer) getParent()).otherLayer.addActor(this);
             ((Layer) getParent()).isCurrentLayer = true;
-
+            
             layerCooldown = 2;
         }
     }
 
     @Override
     public void act(float delta) {
-        if(!moveRight && !moveLeft) {
-            setAnim((xV >= 0) ? IDLE_RIGHT : IDLE_LEFT);
+
+        if(moveRight) {
+            xV = 50;
+            setAnim(WALK_RIGHT);
+        }
+        else if(moveLeft) {
+            xV = -50;
+            setAnim(WALK_LEFT);
+        }
+        if (isMoving == false) {
             xV = 0;
-        } else {
-            if(moveRight) xV = 50;
-            else if(moveLeft) xV = -50;
+            if(faceRight) setAnim(IDLE_RIGHT);
+            else if (faceLeft) setAnim(IDLE_LEFT);
 
             setAnim((xV > 0) ? WALK_RIGHT : WALK_LEFT);
         }
