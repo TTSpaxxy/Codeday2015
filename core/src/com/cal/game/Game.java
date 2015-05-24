@@ -26,7 +26,6 @@ public class Game extends ApplicationAdapter {
 	public static boolean restart = false;
 	public static Level level;
 	public static int levelCounter = 30;
-	public static Random seed;
 
 	public static void nextLevel() {
 		levelCounter -= 1;
@@ -35,7 +34,7 @@ public class Game extends ApplicationAdapter {
 			System.out.println("You win!");
 			System.exit(0);
 		}
-		level = Level.generateRandomLevel(seed);
+		level = Level.generateRandomLevel(new Random());
 	}
 
 	@Override
@@ -44,7 +43,6 @@ public class Game extends ApplicationAdapter {
 
 		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
 		border = new Texture(Gdx.files.internal("Animation/Border.png"));
-		Game.seed = new Random();
 
 		nextLevel();
 	}

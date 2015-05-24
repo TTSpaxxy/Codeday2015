@@ -104,9 +104,9 @@ public class Level extends Stage {
         boolean isFront = random.nextBoolean();
 
         l.front = new Layer();
-        for(int i = 0; i < 7; i++) {
-            int x = random.nextInt(400) + 50;
-            int y = random.nextInt(300) + 50;
+        for(int i = 0; i < 5; i++) {
+            int x = random.nextInt(500) + 50;
+            int y = random.nextInt(350) + 50;
             l.front.addActor(new Platform(x, y, random.nextInt(200) + 100, 30));
             if(i == 4 && isFront) {
                 MainCharacter character = new MainCharacter(x, y + 20);
@@ -120,7 +120,7 @@ public class Level extends Stage {
         }
 
         l.back = new Layer();
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 5; i++) {
             int x = random.nextInt(400) + 50;
             int y = random.nextInt(300) + 50;
             l.back.addActor(new Platform(x, y, random.nextInt(200) + 100, 30));
