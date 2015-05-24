@@ -30,6 +30,8 @@ public class MainCharacter extends LivingEntity {
 
     public LaserGun gun;
 
+    public boolean hasSuit;
+
     public MainCharacter(float xS, float yS) {
         super(xS, yS, 32, 32, 3);
         setAnim(IDLE_RIGHT_FRONT);
@@ -56,7 +58,7 @@ public class MainCharacter extends LivingEntity {
 
     public void jump() {
         if(grounded) {
-            yV = 200;
+            yV = 400;
             grounded = false;
         }
     }
@@ -82,7 +84,7 @@ public class MainCharacter extends LivingEntity {
             jump.play(getX(), getY(), getWidth(), getHeight(), 0);
             end.play(getX(), getY(), getWidth(), getHeight(), 0);
 
-            layerCooldown = 1;
+            layerCooldown = 0;
         }
     }
 
@@ -104,11 +106,11 @@ public class MainCharacter extends LivingEntity {
     public void act(float delta) {
 
         if(facingRight && xV > 0) {
-            xV = 50;
+            xV = 500;
             setAnim("WALK_RIGHT");
         }
         else if(!facingRight && xV < 0) {
-            xV = -50;
+            xV = -500;
             setAnim("WALK_LEFT");
         }
         else if(xV == 0){

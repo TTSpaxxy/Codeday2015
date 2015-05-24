@@ -21,6 +21,7 @@ public class Game extends ApplicationAdapter {
 	Texture border;
 
 	public static boolean nextLevel = false;
+	public static boolean restart = false;
 	public static Level level;
 	public static int levelCounter = 1;
 
@@ -61,5 +62,14 @@ public class Game extends ApplicationAdapter {
 			nextLevel();
 			nextLevel = false;
 		}
+		if(restart) {
+			restart();
+			restart = false;
+		}
+	}
+
+	public static void restart () {
+		levelCounter -= 1;
+		nextLevel();
 	}
 }

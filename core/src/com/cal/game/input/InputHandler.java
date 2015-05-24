@@ -3,6 +3,7 @@ package com.cal.game.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.cal.game.Game;
 import com.cal.game.entity.Entity;
 import com.cal.game.entity.MainCharacter;
 
@@ -39,6 +40,10 @@ public class InputHandler implements InputProcessor {
                 break;
             case Input.Keys.Z:
                 c.gun.shoot(c);
+                break;
+            case Input.Keys.BACKSPACE:
+                Game.restart = true;
+                break;
             default:
                 break;
         }
