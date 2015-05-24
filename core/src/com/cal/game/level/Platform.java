@@ -1,6 +1,7 @@
 package com.cal.game.level;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,11 +27,13 @@ public class Platform extends Actor {
         setHeight(height);
 
         tex = SMALL_PLATFORM;
-        hitbox = new Rectangle(getX(), (getY() + getHeight()) / 2 - getHeight() / 6, getWidth(), getHeight() / 3);
+        hitbox = new Rectangle(getX() + 15, getY(), getWidth() - 30, getHeight() / 2);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        Color batchColor = batch.getColor();
+        batch.setColor(batchColor.r, batchColor.g, batchColor.b, parentAlpha);
         batch.draw(tex, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
