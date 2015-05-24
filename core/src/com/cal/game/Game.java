@@ -29,12 +29,12 @@ public class Game extends ApplicationAdapter {
 		stage = new Stage(new StretchViewport(640, 480));
 		frontLayer = new Layer();
 		backLayer = new Layer();
-		stage.addActor(frontLayer);
 		stage.addActor(backLayer);
+		stage.addActor(frontLayer);
 
 		e = new MainCharacter();
 		p = new Platform(100, 100, 200, 30);
-		p2 = new Platform(100, 150, 200, 30);
+		p2 = new Platform(100, 100, 200, 30);
 		frontLayer.addActor(p);
 		backLayer.addActor(p2);
 		frontLayer.addActor(e);
