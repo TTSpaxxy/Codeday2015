@@ -24,11 +24,13 @@ public class InputHandler implements InputProcessor {
                 c.setMoveLeft(true);
                 c.isMoving = true;
                 c.faceLeft = true;
+                c.leftDown = true;
                 break;
             case Input.Keys.RIGHT:
                 c.setMoveRight(true);
                 c.isMoving = true;
                 c.faceRight = true;
+                c.rightDown = true;
                 break;
             case Input.Keys.SPACE:
                 c.jump();
@@ -50,11 +52,13 @@ public class InputHandler implements InputProcessor {
                 c.setMoveLeft(false);
                 c.isMoving = false;
                 c.faceRight = false;
+                if(c.rightDown) c.setMoveRight(true);
                 break;
             case Input.Keys.RIGHT:
                 c.setMoveRight(false);
                 c.isMoving = false;
                 c.faceLeft = false;
+                if(c.leftDown) c.setMoveLeft(true);
                 break;
             default:
                 break;
@@ -62,6 +66,7 @@ public class InputHandler implements InputProcessor {
 
         return true;
     }
+
 
     @Override
     public boolean keyTyped (char character) {
