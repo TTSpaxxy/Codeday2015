@@ -52,8 +52,8 @@ public class Level extends Stage {
         back = parseLayer((Element) nl.item(1));
         back.isBackLayer = true;
 
-        addActor(front);
         addActor(back);
+        addActor(front);
         front.otherLayer = back;
         back.otherLayer = front;
 
