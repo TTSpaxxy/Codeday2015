@@ -2,6 +2,7 @@ package com.cal.game.entity;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.cal.game.gfx.AnimLoader;
+import com.cal.game.level.Platform;
 
 /**
  * Created by acohen on 5/23/15.
@@ -20,7 +21,7 @@ public class MainCharacter extends Entity {
         super(200, 200, 32, 32);
         currentAnim = WALK_RIGHT;
         currentAnim.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
-        gravMultiplier = 0;
+        gravMultiplier = 1;
     }
 
     public void setMoveRight(boolean t) {
@@ -31,6 +32,14 @@ public class MainCharacter extends Entity {
     public void setMoveLeft(boolean t) {
         if(moveRight && t) moveRight = false;
         moveLeft = t;
+    }
+
+    public void jump() {
+        System.out.println(grounded);
+        if(grounded) {
+            yV = 150;
+            grounded = false;
+        }
     }
 
     @Override

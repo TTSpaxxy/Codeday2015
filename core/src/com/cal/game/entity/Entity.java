@@ -26,11 +26,18 @@ public abstract class Entity extends Actor {
     public Animation currentAnim;
     public float animTime;
 
+    public Rectangle hitBottom, hitTop, hitLeft, hitRight;
+
     public Entity(float xS, float yS, float width, float height) {
         setX(xS);
         setY(yS);
         setWidth(width);
         setHeight(height);
+
+        hitBottom = new Rectangle(getX(), getY(), getWidth(), getHeight() / 8);
+        hitTop = new Rectangle(getX(), getY() + 7 / 8 * getHeight(), getWidth(), getHeight() / 8);
+        hitLeft = new Rectangle(getX(), getY(), getWidth() / 8, getHeight());
+        hitRight = new Rectangle(getX() + 7 / 8 * getWidth(), getY(), getWidth() / 8, getHeight());
     }
 
     public void setAnim(Animation a) {
@@ -52,6 +59,10 @@ public abstract class Entity extends Actor {
         moveBy(delta * xV, delta * yV);
 
         animTime += delta;
+
+        if (gravMultiplier > 0) {
+
+        }
     }
 
     @Override

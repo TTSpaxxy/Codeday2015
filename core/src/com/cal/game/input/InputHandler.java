@@ -26,6 +26,9 @@ public class InputHandler implements InputProcessor {
             case Input.Keys.RIGHT:
                 c.setMoveRight(true);
                 break;
+            case Input.Keys.SPACE:
+                c.jump();
+                break;
             default:
                 break;
         }
