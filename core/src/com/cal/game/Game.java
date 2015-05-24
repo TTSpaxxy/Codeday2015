@@ -24,15 +24,8 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-<<<<<<< HEAD
-		level = new Level("Levels/Level23.xml");
-=======
-<<<<<<< HEAD
-		level = new Level("Levels/Level1.xml");
-=======
-		level = new Level("Levels/Level24.xml");
->>>>>>> origin/master
->>>>>>> origin/master
+		level = new Level("Levels/Level30.xml");
+
 		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
 		border = new Texture(Gdx.files.internal("Animation/Border.png"));
 	}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Layer ord="front">
+        <Platform x="20" y="100" w="600" />
+        <Platform x="500" y="150" w="100" />
+        <PlayerStart x="600" y="125" />
+    </Layer>
+    <Layer ord="back">
+        <Platform x="20" y="275" w="300" />
+        <Platform x="400" y="375" w="200" />
+    </Layer>
+
+</Level>
