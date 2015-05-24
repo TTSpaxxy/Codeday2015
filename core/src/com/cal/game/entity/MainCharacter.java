@@ -58,7 +58,7 @@ public class MainCharacter extends LivingEntity {
 
     public void jump() {
         if(grounded) {
-            yV = 400;
+            yV = 600;
             grounded = false;
         }
     }
