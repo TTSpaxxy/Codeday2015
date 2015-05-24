@@ -17,14 +17,27 @@ import com.cal.game.level.Platform;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
-	Level level;
 	Texture background;
 	Texture border;
-	
+
+	public static boolean nextLevel = false;
+	public static Level level;
+	public static int levelCounter = 1;
+
+	public static void nextLevel() {
+		levelCounter += 1;
+		level.dispose();
+		if(levelCounter > 30) {
+			System.out.println("You win!");
+			System.exit(0);
+		}
+		level = new Level("Levels/Level" + levelCounter + ".xml");
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		level = new Level("Levels/Level30.xml");
+		level = new Level("Levels/Level1.xml");
 
 		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
 		border = new Texture(Gdx.files.internal("Animation/Border.png"));
@@ -38,9 +51,15 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(background, 0, 0);
+		batch.end();
+		level.draw();
+		batch.begin();
 		batch.draw(border, 0, 0);
 		batch.end();
 
-		level.draw();
+		if(nextLevel) {
+			nextLevel();
+			nextLevel = false;
+		}
 	}
 }

@@ -4,6 +4,7 @@
         <Platform x="20" y="350" w="200" />
         <Platform x="220" y="425" w="200" />
         <Platform x="420" y="350" w="200" />
+        <Portal x="550" y="375" />
         <PlayerStart x="30" y="375" />
     </Layer>
     <Layer ord="back">
