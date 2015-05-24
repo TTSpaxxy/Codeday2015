@@ -26,7 +26,7 @@ public class Level extends Stage {
     Layer front, back;
 
     public Level() {
-
+        super(new StretchViewport(640, 480));
     }
 
     public Level(String filePath) {
