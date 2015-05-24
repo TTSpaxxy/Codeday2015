@@ -18,11 +18,15 @@ import com.cal.game.level.Platform;
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Level level;
+	Texture background;
+	Texture border;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		level = new Level("Levels/testlevel.xml");
+		background = new Texture(Gdx.files.internal("Game Pieces/Background.png"));
+		border = new Texture(Gdx.files.internal("Animation/Border.png"));
 	}
 
 	@Override
@@ -31,6 +35,11 @@ public class Game extends ApplicationAdapter {
 
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.draw(background, 0, 0);
+		batch.draw(border, 0, 0);
+		batch.end();
+
 		level.draw();
 	}
 }

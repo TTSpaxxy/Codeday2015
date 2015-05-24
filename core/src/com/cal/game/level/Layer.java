@@ -37,7 +37,7 @@ public class Layer extends Group {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if(isBackLayer) {
-            Matrix4 scaledMatrix = new Matrix4(new Vector3(64, 48, 0), new Quaternion(), new Vector3(0.8f, 0.8f, 0.8f));
+            Matrix4 scaledMatrix = new Matrix4(new Vector3(96, 72, 0), new Quaternion(), new Vector3(0.7f, 0.7f, 0.7f));
             batch.setTransformMatrix(scaledMatrix);
         }
         for(Actor a : getChildren()) {

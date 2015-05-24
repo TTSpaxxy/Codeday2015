@@ -10,11 +10,17 @@ import com.cal.game.level.Layer;
  */
 public class MainCharacter extends Entity {
 
-    private static final Animation IDLE_RIGHT = AnimLoader.loadAnim("Animation/MainCharacter.png", 0, 2, 1f / 2f);
-    private static final Animation IDLE_LEFT = AnimLoader.loadAnim("Animation/MainCharacter.png", 8, 10, 1f / 2f);
+    private static final Animation IDLE_RIGHT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 35, 37, 1f / 2f);
+    private static final Animation IDLE_LEFT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 43, 45, 1f / 2f);
 
-    private static final Animation WALK_RIGHT = AnimLoader.loadAnim("Animation/MainCharacter.png", 16, 19, 1f/ 6f);
-    private static final Animation WALK_LEFT = AnimLoader.loadAnim("Animation/MainCharacter.png", 24, 27, 1f / 6f);
+    private static final Animation WALK_RIGHT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 51, 54, 1f/ 6f);
+    private static final Animation WALK_LEFT_FRONT = AnimLoader.loadAnim("Animation/MainCharacter.png", 59, 62, 1f / 6f);
+
+    private static final Animation IDLE_RIGHT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 3, 5, 1f / 2f);
+    private static final Animation IDLE_LEFT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 11, 13, 1f / 2f);
+
+    private static final Animation WALK_RIGHT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 19, 22, 1f/ 6f);
+    private static final Animation WALK_LEFT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 27, 30, 1f / 6f);
 
     public boolean moveRight, moveLeft;
     public boolean faceRight, faceLeft;
@@ -25,7 +31,7 @@ public class MainCharacter extends Entity {
 
     public MainCharacter(float xS, float yS) {
         super(xS, yS, 32, 32);
-        setAnim(IDLE_RIGHT);
+        setAnim(IDLE_RIGHT_FRONT);
         gravMultiplier = 1;
 
         setName("Michael Jackson");
@@ -59,8 +65,14 @@ public class MainCharacter extends Entity {
 
     public void jumpLayers() {
         if(layerCooldown <= 0) {
-            Effect jump = Effect.LAYER_JUMP;
-            Effect end = Effect.LAYER_JUMP_END;
+            Effect jump = null, end = null;
+            if(((Layer) getParent()).isBackLayer) {
+                jump = Effect.LAYER_JUMP_ORANGE;
+                end = Effect.LAYER_JUMP_BLUE;
+            } else {
+                jump = Effect.LAYER_JUMP_BLUE;
+                end = Effect.LAYER_JUMP_ORANGE;
+            }
 
             getParent().addActor(indicator);
             getParent().addActor(jump);
@@ -76,21 +88,35 @@ public class MainCharacter extends Entity {
         }
     }
 
+    public void setAnim(String anim) {
+        if(((Layer) getParent()).isBackLayer) {
+            if(anim.contentEquals("IDLE_LEFT")) setAnim(IDLE_LEFT_BACK);
+            else if(anim.contentEquals("IDLE_RIGHT")) setAnim(IDLE_RIGHT_BACK);
+            else if(anim.contentEquals("WALK_LEFT")) setAnim(WALK_LEFT_BACK);
+            else if(anim.contentEquals("WALK_RIGHT")) setAnim(WALK_RIGHT_BACK);
+        } else {
+            if(anim.contentEquals("IDLE_LEFT")) setAnim(IDLE_LEFT_FRONT);
+            else if(anim.contentEquals("IDLE_RIGHT")) setAnim(IDLE_RIGHT_FRONT);
+            else if(anim.contentEquals("WALK_LEFT")) setAnim(WALK_LEFT_FRONT);
+            else if(anim.contentEquals("WALK_RIGHT")) setAnim(WALK_RIGHT_FRONT);
+        }
+    }
+
     @Override
     public void act(float delta) {
 
         if(moveRight) {
             xV = 50;
-            setAnim(WALK_RIGHT);
+            setAnim("WALK_RIGHT");
         }
         else if(moveLeft) {
             xV = -50;
-            setAnim(WALK_LEFT);
+            setAnim("WALK_LEFT");
         }
         if (isMoving == false) {
             xV = 0;
-            if(faceRight) setAnim(IDLE_RIGHT);
-            else if (faceLeft) setAnim(IDLE_LEFT);
+            if(faceRight) setAnim("IDLE_RIGHT");
+            else if (faceLeft) setAnim("IDLE_LEFT");
         }
 
         indicator.setPosition(getX(), getY());
