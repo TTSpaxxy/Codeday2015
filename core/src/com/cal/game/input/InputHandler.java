@@ -13,6 +13,9 @@ public class InputHandler implements InputProcessor {
 
     MainCharacter c;
 
+    boolean KEY_LEFT_DOWN;
+    boolean KEY_RIGHT_DOWN;
+
     public InputHandler(MainCharacter mainCharacter) {
         c = mainCharacter;
     }
@@ -21,16 +24,12 @@ public class InputHandler implements InputProcessor {
     public boolean keyDown (int keycode) {
         switch(keycode) {
             case Input.Keys.LEFT:
-                c.setMoveLeft(true);
-                c.isMoving = true;
-                c.faceLeft = true;
-                c.leftDown = true;
+                c.setWalk(-1);
+                KEY_LEFT_DOWN = true;
                 break;
             case Input.Keys.RIGHT:
-                c.setMoveRight(true);
-                c.isMoving = true;
-                c.faceRight = true;
-                c.rightDown = true;
+                c.setWalk(1);
+                KEY_RIGHT_DOWN = true;
                 break;
             case Input.Keys.SPACE:
                 c.jump();
@@ -49,18 +48,14 @@ public class InputHandler implements InputProcessor {
     public boolean keyUp (int keycode) {
         switch(keycode) {
             case Input.Keys.LEFT:
-                c.setMoveLeft(false);
-                c.isMoving = false;
-                c.faceRight = false;
-                c.leftDown = false;
-                if(c.rightDown) c.setMoveRight(true);
+                KEY_LEFT_DOWN = false;
+                if(!KEY_RIGHT_DOWN) c.setWalk(0);
+                else c.setWalk(1);
                 break;
             case Input.Keys.RIGHT:
-                c.setMoveRight(false);
-                c.isMoving = false;
-                c.faceLeft = false;
-                c.rightDown = false;
-                if(c.leftDown) c.setMoveLeft(true);
+                KEY_RIGHT_DOWN = false;
+                if(!KEY_LEFT_DOWN) c.setWalk(0);
+                else c.setWalk(-1);
                 break;
             default:
                 break;

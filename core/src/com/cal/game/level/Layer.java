@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.cal.game.entity.item.LaserGun;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class Layer extends Group {
     public boolean isBackLayer = false;
 
     public ArrayList<Platform> platforms;
+    public ArrayList<LaserGun.Bullet> bullets;
 
     public ArrayList<Platform> getPlatforms() {
         if(platforms == null) {
@@ -32,6 +34,23 @@ public class Layer extends Group {
         }
 
         return platforms;
+    }
+
+    public ArrayList<LaserGun.Bullet> getBullets() {
+        if(bullets == null) {
+            bullets = new ArrayList<LaserGun.Bullet>();
+            for(Actor a : getChildren()) {
+                if(a instanceof LaserGun.Bullet) {
+                    bullets.add((LaserGun.Bullet) a);
+                }
+            }
+        }
+
+        return bullets;
+    }
+
+    public void removeBullet(LaserGun.Bullet b) {
+        bullets.remove(b);
     }
 
     @Override

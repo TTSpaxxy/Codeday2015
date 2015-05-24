@@ -22,10 +22,6 @@ public class MainCharacter extends Entity {
     private static final Animation WALK_RIGHT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 19, 22, 1f/ 6f);
     private static final Animation WALK_LEFT_BACK = AnimLoader.loadAnim("Animation/MainCharacter.png", 27, 30, 1f / 6f);
 
-    public boolean moveRight, moveLeft;
-    public boolean faceRight, faceLeft;
-    public boolean isMoving, leftDown, rightDown;
-
     public LayerIndicator indicator;
     public float layerCooldown = 0;
 
@@ -38,22 +34,14 @@ public class MainCharacter extends Entity {
         indicator = new LayerIndicator();
     }
 
-    public void setMoveRight(boolean t) {
-        moveRight = t;
-        if(moveRight) {
-            faceRight = true;
-            faceLeft = false;
+    public void setWalk(int dir) {
+        if(dir > 0) {
+            xV = 50;
+        } else if(dir < 0) {
+            xV = -50;
+        } else {
+            xV = 0;
         }
-        isMoving = t;
-    }
-
-    public void setMoveLeft(boolean t) {
-        moveLeft = t;
-        if(moveLeft) {
-            faceLeft = true;
-            faceRight = false;
-        }
-        isMoving = t;
     }
 
     public void jump() {
@@ -84,7 +72,7 @@ public class MainCharacter extends Entity {
             jump.play(getX(), getY(), getWidth(), getHeight(), 0);
             end.play(getX(), getY(), getWidth(), getHeight(), 0);
 
-            layerCooldown = 2;
+            layerCooldown = 1;
         }
     }
 
@@ -105,18 +93,17 @@ public class MainCharacter extends Entity {
     @Override
     public void act(float delta) {
 
-        if(moveRight) {
+        if(facingRight && xV > 0) {
             xV = 50;
             setAnim("WALK_RIGHT");
         }
-        else if(moveLeft) {
+        else if(!facingRight && xV < 0) {
             xV = -50;
             setAnim("WALK_LEFT");
         }
-        if (isMoving == false) {
-            xV = 0;
-            if(faceRight) setAnim("IDLE_RIGHT");
-            else if (faceLeft) setAnim("IDLE_LEFT");
+        else if(xV == 0){
+            if(facingRight) setAnim("IDLE_RIGHT");
+            else setAnim("IDLE_LEFT");
         }
 
         indicator.setPosition(getX(), getY());
