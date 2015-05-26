@@ -1,6 +1,6 @@
 package com.cal.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.  badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,18 +17,18 @@ import com.cal.game.level.Platform;
 
 import java.util.Random;
 
-public class Game extends ApplicationAdapter {
+public class  Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
 	Texture border;
 
 	public static boolean nextLevel = false;
 	public static boolean restart = false;
-	public static Level level;
+	public static Level level ;
 	public static int levelCounter = 30;
 
 	public static void nextLevel() {
-		levelCounter -= 1;
+ 		levelCounter -= 1;
 		if(level != null) level.dispose();
 		if(levelCounter == 0) {
 			System.out.println("You win!");
